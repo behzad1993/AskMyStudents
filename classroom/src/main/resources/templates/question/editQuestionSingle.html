@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/students.css" media="screen"
+          th:href="@{/stylesheets/students.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/application.css"
+          th:href="@{/stylesheets/application.css}" media="screen"/>
+</head>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<body>
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">
+                <div class="navbar-brand-name">
+                    <img th:src="@{/images/oak-logo-navbar.png}" width="13" height="20" alt="HotOak Logo">
+                    Classroom
+                </div>
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-link" href='/teacher/courses'>
+                    <span class="visible" th:text="${teacherName}">Teacher Name</span>
+                    <span class="glyphicon glyphicon-user"></span>
+                </a></li>
+                <li><a class="navbar-link" href='/logout'>
+                    <span class="visible">Abmelden</span>
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="panel panel-default" id="main-content">
+        <div class="panel-heading">
+            <h2 class="panel-title">Frage bearbeiten</h2>
+        </div>
+        <!--FROM HERE ON, same code-->
+        <div class="panel-body">
+            <div class="navigation-and-button-group">
+                <span class="glyphicon glyphicon-arrow-left "></span>
+                <a th:href="'/teacher/course/' + ${courseId} + '/lesson/' + ${lessonId} + '/quiz/' + ${quizId} + '/questions'">
+                    Aktivit&auml;ten</a>
+                <span class="glyphicon glyphicon-transfer"></span>
+            </div>
+            <hr>
+            <!--TODO: bind js file: question.js-->
+            <div id="sc-mc-question-form">
+
+                <div th:if="${errorMessage}" class="alert alert-danger"
+                     role="alert" th:text="${errorMessage}"></div>
+
+                <form th:action="@{'/teacher/course/' + ${courseId} + '/lesson/' + ${lessonId} + '/quiz/' + ${quizId} + '/updateQuestion/' + ${question.id}}"
+                      th:object="${question}" method="post">
+                    <div id="question-form">
+                        <div class="form-group">
+
+                            <label text="Fragetext" class="control-label">Fragetext</label>
+                            <input class="form-control" th:field="*{text}" th:placeholder="*{text}" type="text" min="1"
+                                   max="500" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" class="random-answers"
+                                   th:field="*{randomOrder}" th:placeholder="*{randomOrder}">
+                            <label th:text="'Zufällige Antwortreihenfolge'">Zuf&auml;llige Antwortreihenfolge</label>
+                        </div>
+                        <div class="form-group narrow-number-input">
+                            <div>
+                                <label th:text="'Bearbeitungszeit (s)'">Bearbeitungszeit (s)</label>
+                            </div>
+                            <input class="time-countdown-question form-control" type="number" th:field="*{timer}"
+                                   th:placeholder="*{timer}">
+                        </div>
+                        <div id="sc-mc-answers-form">
+                            <h2 class="panel-title">Antworten</h2>
+                            <hr>
+
+                            <div th:each="answer : ${question.answers}" class="answer-fields-group"
+                                 id="test">
+                                <input type="hidden" class="answer-order-index"
+                                       th:field="*{answers[__${answerStat.index}__].orderIndex}">
+                                <input type="hidden" class="answer-order-index"
+                                       th:field="*{answers[__${answerStat.index}__].id}">
+                                <input type="hidden" class="answer-order-index"
+                                       th:field="*{answers[__${answerStat.index}__].question}">
+                                <div class="form-group">
+                                    <label th:text="'Antworttext'" class="control-label">Antworttext</label>
+                                    <div class="delete-button inline-button">
+                                        <a type="button" class="btn btn-danger btn-sm"
+                                           th:href="'/teacher/course/' + ${courseId} + '/lesson/' + ${lessonId} + '/quiz/' + ${quizId} + '/question/' + ${question.id} + '/deleteAnswer/' + *{answers[__${answerStat.index}__].id}">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </a>
+                                    </div>
+                                    <textarea id="name" type="text" class="form-control" contentEditable="true" required
+                                              th:field="*{answers[__${answerStat.index}__].answerText}"
+                                              th:placeholder="*{answers[__${answerStat.index}__].answerText}">
+                                    </textarea>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="multi-check-box"
+                                           th:field="*{answers[__${answerStat.index}__].isCorrect}"
+                                           th:placeholder="*{answers[__${answerStat.index}__].isCorrect}">
+                                    <label th:text="'Antwort richtig'">Antwort richtig</label>
+                                </div>
+                                <div class="hidden-check-box">
+                                    <input type="checkbox" class="form-control">
+                                </div>
+                            </div>
+                            <a th:href="'/teacher/course/' + ${courseId} + '/lesson/' + ${lessonId} + '/quiz/' + ${quizId} + '/question/' + ${question.id} + '/answerCreation'"
+                               class="btn btn-default btn-success">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                Weitere Antwort
+                            </a>
+                            <a th:href="'/teacher/course/' + ${courseId} + '/lesson/' + ${lessonId} + '/quiz/' + ${quizId} + '/shuffle/' + ${question.id}"
+                               class="btn btn-default btn-success">
+                                <span class="glyphicon glyphicon-random"></span>
+                                Antworten mischen
+                            </a>
+                            <div class="form-group actions">
+                                <button type="submit" class="btn btn-primary submit-button pull-right">
+                                    &Auml;nderungen speichern
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

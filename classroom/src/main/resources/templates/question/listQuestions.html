@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/students.css" media="screen"
+          th:href="@{/stylesheets/students.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/application.css"
+          th:href="@{/stylesheets/application.css}" media="screen"/>
+</head>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+<body>
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">
+                <div class="navbar-brand-name">
+                    <img th:src="@{/images/oak-logo-navbar.png}" width="13" height="20" alt="HotOak Logo">
+                    Classroom
+                </div>
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-link" href='/teacher/courses'>
+                    <span class="visible" th:text="${teacherName}">Teacher Name</span>
+                    <span class="glyphicon glyphicon-user"></span>
+                </a></li>
+                <li><a class="navbar-link" href='/logout'>
+                    <span class="visible">Abmelden</span>
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="panel panel-default" id="main-content">
+        <div class="panel-heading">
+            <h2 class="panel-title" th:text="${quiz.name}">Quiz Titel</h2>
+        </div>
+        <div class="panel-body">
+            <div class="navigation-and-button-group">
+                <span class="glyphicon glyphicon-arrow-left "></span>
+                <a th:href="'/teacher/course/' + ${courseId} + '/lesson/' + ${lessonId} + '/quizzes'">Quizzes</a>
+                <span class="glyphicon glyphicon-blackboard"></span>
+            </div>
+            <hr>
+
+            <div class="lecture-detail-view-element lecture-description" th:text="${quiz.description}">
+                Quiz Beschreibung
+            </div>
+            <hr>
+
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                    Neue Aktivit&auml;t erstellen <span class="caret"></span></button>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="btn btn-success btn-lg dropdown-menu-button" th:href="'questionCreation/2'">
+                        Single Choice erstellen
+                    </a>
+                        <div class="activity-description">
+                            Eine Single-Choice-Frage hat mehrere Antwortm&ouml;glichkeiten, von denen genau eine richtig
+                            sein muss.
+                        </div>
+                    </li>
+                    <li><a class="btn btn-success btn-lg dropdown-menu-button" th:href="'questionCreation/1'">
+                        Multiple Choice erstellen
+                    </a>
+                        <div class="activity-description">
+                            Eine Multiple Single-Choice-Frage hat mehrere Antwortm&ouml;glichkeiten, von denen eine oder
+                            mehrere richtig sein k&ouml;nnen.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+
+            <div class="lecture-detail-view-element">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Reihenfolge</th>
+                        <th class="lecture-detail-view-table-header">Fragetext</th>
+                        <th>Aktivit&auml;tentyp</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="question : ${questionList}">
+                    <tr th:if="${#lists.isEmpty(quiz.questions)}">
+                        <td colspan="3"><i>Dieses Quiz hat noch keine Aktivit&auml;ten.</i></td>
+                    </tr>
+                    <tr>
+                        <td class="order-actions" th:with="listSize=${questionList.size() - 1}">
+                            <form method="post" class="inline-block" th:action="@{'decreaseIndex/' + ${question.id}}">
+                                <button class="btn btn-default btn-sm"
+                                        th:if="${question.orderIndex > 0}">
+                                    <span class="glyphicon glyphicon-arrow-up"></span>
+                                </button>
+                            </form>
+                            <button class="btn btn-default btn-sm" disabled
+                                    th:if="${question.orderIndex == 0}">
+                                <span class="glyphicon glyphicon-arrow-up" style="color:lightgray"></span>
+                            </button>
+                            <form method="post" class="inline-block" th:action="@{'increaseIndex/' + ${question.id}}">
+                                <button class="btn btn-default btn-sm"
+                                        th:if="${question.orderIndex < listSize}">
+                                    <span class="glyphicon glyphicon-arrow-down"></span>
+                                </button>
+                            </form>
+                            <button class="btn btn-default btn-sm" disabled
+                                    th:if="${question.orderIndex == listSize}">
+                                <span class="glyphicon glyphicon-arrow-down" style="color:lightgray"></span>
+                            </button>
+                        </td>
+                        <td class="lecture-detail-view-content" th:text="${question.text}">Fragetext</td>
+                        <td>
+                            <div th:if="${question instanceof T(de.htw.ai.web.askmystudents.models.questions.MultipleChoiceQuestion)}">
+                                Multiple Choice Quizfrage
+                            </div>
+                            <div th:if="${question instanceof T(de.htw.ai.web.askmystudents.models.questions.SingleChoiceQuestion)}">
+                                Single Choice Quizfrage
+                            </div>
+                        </td>
+                        <td class="actions">
+                            <a class="btn btn-default btn-sm"
+                               th:href="'question/' + ${question.id} + '/questionDetails'">
+                                <span class="glyphicon glyphicon-option-vertical" text="Details2"></span>
+                                Details
+                            </a>
+                            <a class="btn btn-default btn-sm btn-warning" th:title="'Frage bearbeiten'"
+                               th:href="'editQuestionSingle/' + ${question.id}" data-toggle="tooltip">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <form class="inline-block" th:action="@{'duplicateQuestion/' + ${question.id}}"
+                                  th:method="post">
+                                <button type="submit" class="btn btn-default btn-sm btn-warning" data-toggle="tooltip"
+                                        th:title="'Frage duplizieren'">
+                                    <span class="glyphicon glyphicon-duplicate"></span>
+                                </button>
+                            </form>
+                            <form class="inline-block" th:action="@{'deleteQuestion/' + ${question.id}}"
+                                  th:method="post">
+                                <button class="btn btn-default btn-sm btn-danger"
+                                        th:title="'Frage löschen'"
+                                        data-toggle="tooltip">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+</body>
+</html>

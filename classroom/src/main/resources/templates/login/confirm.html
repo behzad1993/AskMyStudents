@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/students.css" media="screen"
+          th:href="@{stylesheets/students.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/application.css"
+          th:href="@{stylesheets/application.css}" media="screen"/>
+</head>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<body class="welcome">
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">
+                <div class="navbar-brand-name">
+                    <img th:src="@{images/oak-logo-navbar.png}" width="13" height="20" alt="HotOak Logo">
+                    Classroom
+                </div>
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                    <span>Anmeldung für Dozenten</span>
+                </li>
+                <li><a class="navbar-link" th:href="'/student/login'">
+                    <span class="visible">Anmeldung f&uuml;r Studenten</span>
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="panel-body student-login">
+    <div class="big-logo-div">
+        <img th:src="@{images/oak-logo.png}" alt="HotOak Logo" class="big-logo">
+    </div>
+
+    <div th:if="${successMessage}" class="alert alert-success"
+         role="alert" th:text="${successMessage}"></div>
+
+    <div th:if="${errorMessage}" class="alert alert-danger"
+         role="alert" th:text="${errorMessage}"></div>
+
+    <div th:if="${invalidToken}" class="alert alert-danger"
+         role="alert" th:text="${invalidToken}"></div>
+
+    <h4 class="mobile-text">Passwort setzen</h4>
+
+    <form th:if="!${invalidToken}" class="m-t" id="passwordForm" role="form" action="#"
+          th:action="@{/confirm}" method="post">
+        <input type="hidden" name="token" th:value="${confirmationToken}">
+        <div class="form-group">
+            <label class="control-label">Passwort</label>
+            <input name="password" type="password" id="password"
+                   placeholder="Passwort" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label text="Email" class="control-label">Passwort Best&auml;tigen</label>
+            <input type="password" class="form-control" id="signup-password-confirm"
+                   placeholder="Passwort Best&auml;tigen"
+                   name="confirmPassword" data-fv-notempty="true"
+                   data-fv-notempty-message="Please confirm password"
+                   data-fv-identical="true"
+                   data-fv-identical-field="password"
+                   data-fv-identical-message="Both passwords must be identical"/>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group actions">
+            <button type="submit" class="btn btn-primary login-button">Speichern</button>
+        </div>
+    </form>
+    <div class="form-group actions">
+        <a th:href="'/loginTeacher'">
+            <button type="submit" class="btn btn-warning login-button" th:href="'/loginTeacher'">Zur&uuml;ck zum
+                Login
+            </button>
+        </a>
+    </div>
+</div>
+</body>
+</html>

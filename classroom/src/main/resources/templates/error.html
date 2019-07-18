@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/students.css" media="screen"
+          th:href="@{/stylesheets/students.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/application.css"
+          th:href="@{/stylesheets/application.css}" media="screen"/>
+</head>
+<body class="welcome">
+<div class="errorPage">
+
+    <div class="panel-body student-login">
+        <div class="big-logo-div">
+            <img th:src="@{/images/behzad.png}" style="width: 65%; height: 65%">
+        </div>
+        <h1 align="center">ERROR</h1>
+        <p align="center">
+            Da ist uns wohl ein Fehler unterlaufen.
+            (
+            <span th:text="${path}"/>
+            ).
+        </p>
+        <p th:text="${'Details: ' + message}"/>
+        <p th:text="${'Status: ' + status}"/>
+        <br>
+        <div class="form-group actions">
+            <a th:href="'/index'">
+                <button type="button" class="btn btn-primary login-button">Zur&uuml;ck zur Startseite</button>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/students.css" media="screen"
+          th:href="@{/stylesheets/students.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/application.css"
+          th:href="@{/stylesheets/application.css}" media="screen"/>
+</head>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<body>
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">
+                <div class="navbar-brand-name">
+                    <img th:src="@{/images/oak-logo-navbar.png}" width="13" height="20" alt="HotOak Logo">
+                    Classroom
+                </div>
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-link" href="/teacher/courses">
+                    <span class="visible" th:text="${teacherName}">Teacher Name</span>
+                    <span class="glyphicon glyphicon-user"></span>
+                </a></li>
+                <li><a class="navbar-link" href='/logout'>
+                    <span class="visible">Abmelden</span>
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="panel panel-default" id="main-content">
+        <div class="panel-heading">
+            <h2 class="panel-title">Quiz erstellen</h2>
+        </div>
+        <!--FROM HERE ON, same code-->
+        <div class="panel-body">
+            <div class="back-to-overview">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+                <a th:href="'/teacher/course/' + ${courseId} + '/lesson/' + ${lessonId} + '/quizzes'">Quizzes</a>
+                <span class="glyphicon glyphicon-list-alt"></span>
+            </div>
+            <hr>
+        </div>
+        <div class="panel-body">
+            <form action="#" method="post" th:object="${quiz}"
+                  th:action="@{'/teacher/course/' + ${courseId} + '/lesson/' + ${lessonId} + '/quiz'}">
+                <div class="form-group">
+                    <label class="control-label">Quiztitel</label>
+                    <input class="form-control" type="text" th:field="*{name}" th:placeholder="*{name}" autofocus
+                           maxlength="70" minlength="1">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Beschreibung</label>
+                    <textarea class="form-control" th:field="*{description}" th:placeholder="*{description}"
+                              maxlength="500" minlength="1">
+                    </textarea>
+                </div>
+                <div class="form-group actions">
+                    <button type="submit" class="btn btn-primary submit-button pull-right"> Quiz erstellen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,315 @@
+// Place all the styles related to the Presentations controller here.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// add some margin to the bottom of the question display block,
+// so that it should hopefully be scrollable above the fixed toolbar
+// if it's too long
+.presentation-view {
+  //margin-bottom: calc(40px + 3em);
+}
+
+#toolbar {
+	background: white;
+
+  .timer{
+    &.time-running-out { // red numbers for the last 5 seconds
+      color: #d90429;
+    }
+  }
+
+  ul {
+    position: relative;
+  }
+
+  ul li{
+    font-size: 1.5em;
+    vertical-align: middle;
+  }
+
+  .label {
+    background-color: #d90429;
+  }
+}
+
+// This CSS here is for the admin site (probably should rename the ID to be a bit more specific?)
+#presentation {
+  position: relative;
+
+  .presentation_control {
+    .btn {
+      color: #2b2d42;
+    }
+  }
+
+  .progress_presentation {
+    margin: 0;
+    position: relative;
+    
+    .progress-bar-background {
+      position: absolute;
+      height: inherit;
+      background-color: #fff;
+      mix-blend-mode: exclusion;
+    }
+    
+    .progress-bar {
+      position: relative;
+      background-color: #d90429;
+      mix-blend-mode: lighten;
+    }
+    
+    .progress-bar-content {
+      position: absolute;
+      width: 100%;
+      mix-blend-mode: difference;
+      color: white;
+    }
+  }
+
+  #activity {
+    ul {
+      padding: 0px;
+    }
+  }
+}
+
+// displaying the students' mood data
+
+#mood .sliders {
+  .small{
+    margin-top: -1.4em;
+  }
+
+  .slider{
+    width: 100%;
+    opacity: 1;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d90429+0,009900+50,d90429+100 */
+    background: #8d99ae; /* Old browsers */
+    background: -moz-linear-gradient(left, rgba(217,4,41,1) 0%, rgba(255,255,0,1),rgba(0,113,0,1) 50%, rgba(255,255,0,1), rgba(217,4,41,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, rgba(217,4,41,1) 0%, rgba(255,255,0,1),rgba(0,113,0,1) 50%, rgba(255,255,0,1), rgba(217,4,41,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, rgba(217,4,41,1) 0%, rgba(255,255,0,1),rgba(0,113,0,1) 50%, rgba(255,255,0,1), rgba(217,4,41,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d90429', endColorstr='#d90429',GradientType=1 ); /* IE6-9 */
+
+    .ui-slider-handle{
+      background: #fff;
+    }
+  }
+}
+
+#mood .mood {
+  padding: 2em 1em 1em;
+  text-align: center;
+
+  & > div {
+    margin:0 3%;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+
+    p {
+      color: #000000;
+      font-size: 0.90em;
+    }
+  }
+
+  .emoji {
+    text-align: center;
+    background-size: 100%;
+    width: 32px;
+    height: 32px;
+
+    &[data-num="0"] {
+      opacity: 0.2;
+    }
+  }
+}
+
+#students {
+  .btn-group {
+    margin: -6px -6px 0px;
+  }
+}
+
+#presentation-admin-view {
+  .spinner {
+    margin: 5em auto;
+    width: 70px;
+    text-align: center;
+  }
+}
+
+// instructor's view after starting the presentation where presentation PIN and participating students are displayed
+
+#presentation-waiting-view {
+  #presentation-pin-wrapper {
+    text-align: center;
+    #presentation-pin {
+      display: inline-block;
+      border: 1px solid;
+      width: 66%;
+      text-align: center;
+      font-size: 200%;
+    }
+  }
+  .presentation-info{
+    .panel-body{
+      padding-top: 0px;
+      color: #d90429;
+      font-size: 3em;
+      text-align: center;
+    }
+    h1{
+      color: black;
+    }
+  }
+
+  #student-list {
+    text-align: left;
+    padding: 7.5px;
+    .student-nickname {
+      display: inline-block;
+      margin: 7.5px;
+      padding: 0.5em 1em;
+      font-size: 1.33em;
+    }
+  }
+}
+
+.presentation-view {
+  #question-detail {
+    text-align: justify;
+    font-size: 150%;
+  }
+  #summary-heading {
+    text-align: center;
+    font-size: 200%;
+  }
+}
+
+.presentation-actions {
+  position: fixed;
+  bottom: calc(40px + 1em);
+  right: 2em;
+  .btn {
+    box-shadow: rgba(0,0,0,0.25) 0px 0px 10px;
+  }
+  .presentation-timer {
+    position: fixed;
+    left: 0;
+    bottom: inherit;
+    width: 100%;
+    text-align: center;
+    .timer-block {
+      font-size: 4em;
+      color: #000000;
+    }
+
+    .timer{
+      &.time-running-out { // red numbers for the last 5 seconds
+        color: #d90429;
+      }
+    }
+  }
+}
+
+#presentation-freetextpoll-view,
+#presentation-freetextpoll-results-view {
+  .freetextpoll-question {
+    text-align: center;
+    font-size: 180%;
+    color: gray;
+  }
+  .freetextpoll-response {
+    margin-top: 0.5em;
+    padding: 0.5em;
+  }
+}
+
+#presentation-question-view {
+  #countdown-value {
+    display: none;
+  }
+  #question-answers {
+    text-align: center;
+    font-size: 1.5em;
+    .answer {
+      display: inline-flex;
+      justify-content: center;
+      width: 45%;
+      min-height: 4em;
+      text-align: center;
+      vertical-align: middle;
+      // two answers in a row with correct margin
+      &:first-child,
+      &:nth-child(2) {
+        margin-bottom: 1em;
+      }
+      &:nth-child(2n) {
+        margin-left: 2%;
+      }
+      &:nth-child(2n+1) {
+        margin-right: 2%;
+      }
+      .answer-text {
+        display: inline-flex;
+        padding: 0.5em;
+        align-self: center;
+        max-height: 100%;
+        overflow: hidden; // important for long answers
+      }
+    }
+  }
+}
+
+#presentation-question-results-view {
+  #question-answers-graph {
+    min-height: 20em;
+    height: 100%;
+    position: relative;
+    text-align: center;
+    .answer-graph-item {
+      position: relative;
+      display: inline-block;
+      justify-content: center;
+      vertical-align: top;
+      min-height: 20em;
+      width: 20%;
+      .answer-bar {
+        position: relative;
+        height: 20em;
+        .answer-bar-number {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          color: white;
+          z-index: 1000;
+          font-size: 125%;
+        }
+        .answer-bar-fill {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          background-color: #8D99AE;
+        }
+      }
+      .answer-text {
+        font-size: 1.5em;
+      }
+      // Set the fill colour for the correct bar to green
+      &.correct {
+        .answer-bar {
+          .answer-bar-fill {
+            background-color: #009900;
+          }
+        }
+      }
+    }
+  }
+}
+
+// buttons in lecture detail view with the presentation's date
+// for showing statistics of each presentation
+.presentation-date-buttons {
+  display: inline;
+}

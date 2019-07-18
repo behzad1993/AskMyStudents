@@ -1,0 +1,214 @@
+// Place all the styles related to the Students controller here.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// home page
+.student-login {
+  color: white;
+  padding: 35px;
+
+  h4 {
+    margin-bottom: 40px;
+  }
+
+  @media (min-width: 1000px) { // more padding for non-mobile devices
+    padding-left: 30%;
+    padding-right: 30%;
+    padding-top: 10%;
+  }
+}
+
+// bottom toolbar items
+.nav-pills {
+  li {
+    display: table-cell !important;
+    width: 1%;
+
+    a {
+      margin: 0px !important;
+      border-radius: 0px !important;
+      color: #2b2d42;
+    }
+
+    &.active > a, &.active > a:hover, &.active > a:focus {
+      background: #2b2d42;
+    }
+  }
+
+  li:nth-child(2) {
+    //border: 0px 1px grey solid;
+    border: 1px grey solid;
+  }
+}
+
+.student-question-view,
+.student-simplepoll-view {
+  .timer {
+    color: #2B2D42;
+  }
+
+  #question-text {
+    color: white;
+    word-wrap: break-word;
+    padding: 15px;
+    font-size: 20px
+  }
+
+  #detail-text { // optional question details
+    font-size: 15px;
+  }
+
+  .panel {
+    margin-top: 2%;
+    text-align: center;
+    width: 100%;
+    background-color: #8D99AE;
+    border-style: solid;
+    border-color: #2B2D42;
+  }
+
+  .response-text {
+    background-color: #FFFFFF;
+    border-color: #ddd;
+    padding: 0.5em;
+  }
+
+  .answer-button {
+    // custom image for answer buttons
+    background-image: url(static/images/pfeil.png);
+    //background-position: 0px calc;
+    background-position: 0px;
+    background-repeat: no-repeat;
+    background-size: 33px auto;
+    padding-left: 35px; // text should not cover background image
+
+    white-space: normal;
+    word-wrap: break-word;
+    background-color: #8D99AE;
+    color: white;
+
+    display: inline;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+
+    &:first-child,
+    &:nth-child(2) {
+      margin-bottom: 1em;
+    }
+
+    &:nth-child(2n) {
+      margin-left: 2%;
+    }
+
+    &:nth-child(2n+1) {
+      margin-right: 2%;
+    }
+
+    &.chosen-answer {
+      background-image: url(static/images/pfeil_auswahl.png);
+      background-color: #E0E0E0;
+      opacity: 1.0;
+    }
+  }
+
+  // simple polls also need custom styles
+  .simplepoll-answer-button {
+    background-image: url(static/images/pfeil.png);
+    //background-position: 0px calc;
+    background-position: 0px;
+    background-repeat: no-repeat;
+    background-size: 33px auto;
+    padding-left: 35px; // text should not cover background image
+
+    white-space: normal;
+    word-wrap: break-word;
+    background-color: #8D99AE;
+    color: white;
+
+    display: inline-block;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 1em;
+  }
+
+  // highlight correct answer when specific class is present
+  #answer-list.correct-visible {
+    .answer-button.correct {
+      background-color: #009900;
+    }
+
+    .answer-button.chosen-answer:not(.correct) {
+      background-color: #d90429;
+    }
+  }
+
+  // different behaviour for mc questions due to checkbox
+  .mc-answer-group {
+    input[type="checkbox"]:checked ~ .simplepoll-answer-button {
+      background-image: url(static/images/pfeil_auswahl.png);
+      background-color: #E0E0E0;
+    }
+  }
+
+  .send-button {
+    margin-top: 1.5em;
+  }
+
+  .separator {
+    border: solid #2B2D42 1px;
+  }
+
+  // showing type of activity
+  .info-text {
+    color: #d90429;
+    text-align: center;
+  }
+
+  .progress {
+    width: 80%;
+    background-color: #edf2f4;
+    margin-top: 2%;
+    border-radius: 12px;
+    height: 1em;
+  }
+
+  .progress-bar {
+    background-color: #009900;
+    height: 100%;
+  }
+}
+
+// view that students see after joining the presentation
+// before the first activity has started
+#student-waiting-view {
+  .welcome-text {
+    color: #2B2D42;
+    background-color: #FFFFFF;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    margin-right: 10%;
+    margin-left: 10%;
+    text-align: center;
+    border-style: none;
+    border-color: #8D99AE;
+    text-align: center;
+  }
+
+  .spinner {
+    margin: 5em auto 0;
+    width: 70px;
+    text-align: center;
+  }
+}
+
+// view after completing the presentation
+#student-summary-view {
+  text-align: center;
+
+  #summary-heading {
+    font-size: 200%;
+  }
+}

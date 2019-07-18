@@ -1,0 +1,28 @@
+// Place all the styles related to the Questions controller here.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "_mixins.css.scss";
+
+
+.inline-button {
+  display: inline-block;
+  padding: 0.5em;
+}
+
+.hidden-check-box {
+  display: none;
+}
+
+.detail-text {
+  font-size: 9px;
+}
+
+.question-answer-view {
+  table {
+    td.correct-status {
+      .glyphicon-ok {
+        color: green;
+        @include translate(0, 5px);
+      }
+    }
+  }
+}

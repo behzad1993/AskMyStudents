@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/students.css" media="screen"
+          th:href="@{/stylesheets/students.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/application.css"
+          th:href="@{/stylesheets/application.css}" media="screen"/>
+</head>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<body>
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">
+                <div class="navbar-brand-name">
+                    <img th:src="@{/images/oak-logo-navbar.png}" width="13" height="20" alt="HotOak Logo">
+                    Classroom
+                </div>
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-link" href='/teacher/courses'>
+                    <span class="visible" th:text="${teacherName}">Teacher Name</span>
+                    <span class="glyphicon glyphicon-user"></span>
+                </a></li>
+                <li><a class="navbar-link" href='/logout'>
+                    <span class="visible">Abmelden</span>
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="panel panel-default" id="main-content">
+        <div class="panel-heading">
+            <h2 class="panel-title"> Vorlesungen </h2>
+        </div>
+
+        <div class="panel-body">
+            <div class="text-center">
+                <a th:href="'lessonCreation'">
+                    <button class="btn btn-default btn-success">Vorlesung erstellen</button>
+                </a>
+            </div>
+            <div class="text-left">
+                <span class="glyphicon glyphicon-arrow-left "></span>
+                <a th:href="'/teacher/courses'">Kurse</a>
+                <span class="glyphicon glyphicon-book"></span>
+            </div>
+            <hr>
+            <ul th:each="lesson : ${lessonList}">
+                <li>
+                    <div class="large-text" th:text="${lesson.name}"></div>
+                    <div class="button-group">
+                        <a class="btn btn-default btn-sm" data-toggle="tooltip"
+                           th:href="'lesson/' + ${lesson.id} + '/quizzes'"
+                           th:title="'Quizzes erstellen, ändern und Ergebnisse anzeigen'">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            Quizzes
+                        </a>
+                        <a class="btn btn-default btn-sm" data-toggle="tooltip"
+                           th:href="'lesson/' + ${lesson.id} + '/feedback'"
+                           th:title="'Zur Live-Feedback Ansicht wechseln'">
+                            <span class="glyphicon glyphicon-bullhorn"></span>
+                            Feedbacks
+                        </a>
+                        <form class="inline-block" th:if="${#bools.isFalse(lesson.isActive)}" method="post"
+                              th:action="@{'/teacher/course/' + ${courseId} + '/lesson/' + ${lesson.id} + '/start'}">
+                            <button type="submit" class="btn btn-default btn-sm" data-toggle="tooltip"
+                                    th:title="'Den Studenten erlauben Feedbacks abzugeben'">
+                                <span class="glyphicon glyphicon-play"></span>
+                                Live-Feedback
+                            </button>
+                        </form>
+                        <form class="inline-block" th:if="${#bools.isTrue(lesson.isActive)}" method="post"
+                              th:action="@{'/teacher/course/' + ${courseId} + '/lesson/' + ${lesson.id} + '/stop'}">
+                            <button type="submit" class="btn btn-default btn-sm" data-toggle="tooltip"
+                                    th:action="@{'lesson/' + ${lesson.id} + '/stop'}"
+                                    th:title="'Den Studenten nicht mehr erlauben Feedbacks abzugeben'">
+                                <span class="glyphicon glyphicon-stop"></span>
+                                Live-Feedback
+                            </button>
+                        </form>
+                        <a class="btn btn-default btn-sm btn-warning" th:title="'Vorlesung bearbeiten'"
+                           th:href="'editLesson/' + ${lesson.id}" data-toggle="tooltip">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <form class="inline-block" th:action="@{'duplicateLesson/' + ${lesson.id}}"
+                              th:method="post">
+                            <button type="submit" class="btn btn-default btn-sm btn-warning" data-toggle="tooltip"
+                                    th:title="'Vorlesung duplizieren'">
+                                <span class="glyphicon glyphicon-duplicate"></span>
+                            </button>
+                        </form>
+                        <form class="inline-block" th:action="@{'deleteLesson/' + ${lesson.id}}"
+                              th:method="post">
+                            <button class="btn btn-default btn-sm btn-danger"
+                                    th:title="'Vorlesung löschen. Achtung: es werden alle untergeordneten Elemente ebenfalls gelöscht'"
+                                    data-toggle="tooltip">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="lecture-description">
+                        <div th:text="${lesson.description}">
+                            Beschreibung
+                        </div>
+                    </div>
+                </li>
+                <hr>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+</body>
+</html>

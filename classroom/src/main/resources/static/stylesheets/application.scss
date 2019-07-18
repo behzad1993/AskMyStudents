@@ -1,0 +1,247 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+@import "presentations";
+@import "students";
+@import "lectures";
+@import "feedback";
+@import "questions";
+
+.hidden {
+  display: none;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+html, body {
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, p, div {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+  text-align: center;
+}
+
+.navbar-default {
+  background-color: #2b2d42;
+  border-radius: 0px;
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-text,
+.navbar-default .navbar-text .navbar-link {
+  color: #FFF;
+}
+
+.navbar-brand-name > {
+  display: inline-block;
+  float: left;
+
+}
+
+.navbar-brand-name > img {
+  display: inline-block;
+  float: left;
+  margin-right: 5px;
+}
+
+// logo above login form on home page
+.big-logo-div {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2em;
+}
+
+.big-logo {
+  width: 120px;
+  height: 178px;
+}
+
+.home-sub-label-text {
+  font-size: 12px;
+}
+
+@media only screen and (max-width: 768px) {
+  #main-content {
+    margin: 0px;
+  }
+  .big-logo {
+    display: none;
+  }
+  .mobile-text {
+    font-size: 15px;
+  }
+}
+
+.welcome {
+  background: {
+    image: url("../images/background.jpg");
+    size: cover;
+    repeat: no-repeat;
+  }
+}
+
+
+.back-to-overview {
+  max-width: 45%;
+  word-wrap: break-word;
+}
+
+body {
+  background-color: #edf2f4;
+  padding-bottom: 70px;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+#main-content {
+  margin: 0 7%;
+}
+
+.large-text {
+  font-size: 18px;
+  word-wrap: break-word;
+}
+
+.panel hr {
+  margin: 10px 0;
+}
+
+.panel-title body {
+  word-wrap: break-word;
+}
+
+.time-countdown-question {
+  width: 70px;
+}
+
+form {
+
+  //display: inline-block; //Or display: inline;
+
+  .form-group {
+    margin-top: 20px;
+
+    label {
+      .sub-label {
+        color: grey;
+        font-weight: normal;
+        font-size: 80%;
+      }
+    }
+
+    textarea { // global property
+      height: 100px;
+    }
+  }
+}
+
+// limit width of all input fields of type number because
+// bootstrap's form-control expands them over the entire page
+.narrow-number-input {
+  width: 25%;
+}
+
+.login-button, .form-button {
+  width: 100%;
+}
+
+.instructor-login, .instructor-form {
+  margin: 2% 30%;
+}
+
+.navigation-and-button-group {
+  margin-bottom: 20px;
+}
+
+.button-group {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.field_with_errors {
+  input, textarea {
+    border-color: red;
+
+    &.form-control:focus {
+      border-color: red;
+    }
+  }
+}
+
+table.table {
+  tr td.actions {
+    white-space: nowrap;
+  }
+}
+
+.spinner {
+  &.small > div {
+    width: 9px;
+    height: 9px;
+  }
+
+  & > div {
+    width: 18px;
+    height: 18px;
+    background-color: #8D99AE;
+
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  }
+
+  .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+  }
+
+  .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+  }
+
+  @-webkit-keyframes sk-bouncedelay {
+    0%, 80%, 100% {
+      -webkit-transform: scale(0)
+    }
+    40% {
+      -webkit-transform: scale(1.0)
+    }
+  }
+
+  @keyframes sk-bouncedelay {
+    0%, 80%, 100% {
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    }
+    40% {
+      -webkit-transform: scale(1.0);
+      transform: scale(1.0);
+    }
+  }
+}

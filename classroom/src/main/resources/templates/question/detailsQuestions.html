@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/students.css" media="screen"
+          th:href="@{/stylesheets/students.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/application.css"
+          th:href="@{/stylesheets/application.css}" media="screen"/>
+</head>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+<body>
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">
+                <div class="navbar-brand-name">
+                    <img th:src="@{/images/oak-logo-navbar.png}" width="13" height="20" alt="HotOak Logo">
+                    Classroom
+                </div>
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-link" href='/teacher/courses'>
+                    <span class="visible" th:text="${teacherName}">Teacher Name</span>
+                    <span class="glyphicon glyphicon-user"></span>
+                </a></li>
+                <li><a class="navbar-link" href='/logout'>
+                    <span class="visible">Abmelden</span>
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid" id="main-content">
+    <div class="panel panel-default question-answer-view">
+        <div class="panel-heading">
+            <h2 class="panel-title" th:text="${question.text}">Fragentext</h2>
+        </div>
+        <div class="panel-body">
+            <div class="navigation-and-button-group">
+                <span class="glyphicon glyphicon-arrow-left "></span>
+                <a th:href="'/teacher/course/' + ${courseId} + '/lesson/' + ${lessonId} + '/quiz/' + ${quizId} + '/questions'">
+                    Aktivit&auml;ten</a>
+                <span class="glyphicon glyphicon-transfer"></span>
+            </div>
+            <hr>
+
+            <strong>Fragentext:</strong>
+            <div class="lecture-detail-view-element large-text" th:text="${question.text}">
+            </div>
+
+            <strong>Zugeh&ouml;riger Quiz:</strong>
+            <div class="lecture-detail-view-element large-text" th:text="${question.quiz.name}">
+                Fragentext
+            </div>
+
+            <strong class="inline-block">Zuf&auml;llige Antwortreihenfolge:
+                <div class="inline-block" th:if="${question.randomOrder}">
+                    <span class="glyphicon glyphicon-ok" style="color: green"></span>
+                </div>
+                <div class="inline-block" th:unless="${question.randomOrder}">
+                    <span class="glyphicon glyphicon-remove" style="color: red"></span>
+                </div>
+            </strong>
+            <hr>
+
+            <strong>Antworten:</strong>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Reihenfolge</th>
+                    <th class="lecture-detail-view-table-header">Antworttext</th>
+                    <th>Ist Korrekt?</th>
+                </tr>
+                </thead>
+
+                <tbody th:each="answer : ${answerList}">
+                <tr th:if="${#lists.isEmpty(answerList)}">
+                    <td colspan="3"><i>Diese Frage hat noch keine Antworten.</i></td>
+                </tr>
+                <tr>
+                    <td class="order-actions" th:with="listSize=${answerList.size() - 1}">
+                        <div th:unless="${question.randomOrder}">
+                            <form method="post" class="inline-block" th:action="@{'decreaseIndex/' + ${answer.id}}">
+                                <button class="btn btn-default btn-sm"
+                                        th:if="${answer.orderIndex > 0}">
+                                    <span class="glyphicon glyphicon-arrow-up"></span>
+                                </button>
+                            </form>
+                            <button class="btn btn-default btn-sm" disabled
+                                    th:if="${answer.orderIndex == 0}">
+                                <span class="glyphicon glyphicon-arrow-up" style="color:lightgray"></span>
+                            </button>
+                            <form method="post" class="inline-block" th:action="@{'increaseIndex/' + ${answer.id}}">
+                                <button class="btn btn-default btn-sm"
+                                        th:if="${answer.orderIndex < listSize}">
+                                    <span class="glyphicon glyphicon-arrow-down"></span>
+                                </button>
+                            </form>
+                            <button class="btn btn-default btn-sm" disabled
+                                    th:if="${answer.orderIndex == listSize}">
+                                <span class="glyphicon glyphicon-arrow-down" style="color:lightgray"></span>
+                            </button>
+                        </div>
+                        <div th:if="${question.randomOrder}">
+                            <button class="btn btn-default btn-sm" disabled>
+                                <span class="glyphicon glyphicon-arrow-up" style="color:lightgray"></span>
+                            </button>
+                            <button class="btn btn-default btn-sm" disabled>
+                                <span class="glyphicon glyphicon-arrow-down" style="color:lightgray"></span>
+                            </button>
+                        </div>
+                    </td>
+                    <td class="" th:text="${answer.answerText}">Antworttext</td>
+                    <td class="correct-status">
+                        <div th:if="${answer.isCorrect}">
+                            <span class="glyphicon glyphicon-ok" style="color: green"></span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+</body>
+</html>

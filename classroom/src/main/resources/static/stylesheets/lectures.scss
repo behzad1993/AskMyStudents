@@ -1,0 +1,162 @@
+// Place all the styles related to the Lectures controller here.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "_mixins.css.scss";
+
+.open-presentation {
+  padding: 0.5em;
+  position: relative;
+
+  .open-presentation-icon {
+    display: inline-block;
+    padding: 0 0.5em;
+  }
+
+  .lecture-name {
+    margin-right: 0.5em;
+  }
+
+  .start-time {
+    display: inline-block;
+    position: absolute;
+    right: 0.5em;
+    top: 50%;
+    @include translate(0, -50%);
+
+    .icon-with-time {
+      display: none;
+    }
+  }
+
+  .btn .button-text-short {
+    display: none;
+  }
+}
+
+.lecture-description {
+  font-weight: 200;
+  margin-bottom: 30px;
+  word-wrap: break-word;
+}
+
+.lecture-detail-view-element {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  word-wrap: break-word;
+}
+
+// to adjust table and not get text extending over borders / stretching title
+.lecture-detail-view-table-header {
+  width: 100%;
+}
+
+.lecture-detail-view-content {
+  background-color: #edf2f4;
+  border-color: #ddd;
+  word-break: break-word;
+}
+
+// dropdown menu for creating new activities
+
+.dropdown {
+  text-align: center;
+}
+
+.dropdown-menu {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dropdown-menu-button {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 7px;
+}
+
+.activity-description {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 200;
+}
+
+.presentation-start-button {
+  display: inline-block;
+}
+
+@media only screen and (max-width: 1250px) {
+  .open-presentation {
+    .open-presentation-icon {
+    }
+
+    .lecture-name {
+      margin-right: 0.5em;
+    }
+
+    .btn {
+      .button-text {
+        display: none;
+      }
+
+      .button-text-short {
+        display: initial;
+      }
+    }
+  }
+}
+
+// used across numerous tables in several views
+// to center the order-changing buttons,
+// just add the class 'order-actions' to each
+// td element that contains the order changing buttons
+// and because button_to's are form, which are block-level
+// we set it to inline here as well
+table {
+  tr {
+    td.order-actions {
+      text-align: center;
+
+      .button_to {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .open-presentation {
+    .open-presentation-icon {
+    }
+
+    .lecture-name {
+      margin-right: 0.5em;
+    }
+
+    .btn {
+      .button-text {
+        display: none;
+      }
+
+      .button-text-short {
+        display: none;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .open-presentation {
+    .start-time {
+      .begin-label,
+      .timeago.time-value {
+        display: none;
+      }
+
+      .icon-with-time {
+        display: initial;
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/students.css" media="screen"
+          th:href="@{/stylesheets/students.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/application.css"
+          th:href="@{/stylesheets/application.css}" media="screen"/>
+</head>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<body>
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">
+                <div class="navbar-brand-name">
+                    <img th:src="@{/images/oak-logo-navbar.png}" width="13" height="20" alt="HotOak Logo">
+                    Classroom
+                </div>
+            </a>
+            <p class="navbar-text" th:text="'PIN: ' + ${pin}">PIN</p>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-link" href='/teacher/courses'>
+                    <span class="visible" th:text="${teacherName}">Teacher Name</span>
+                    <span class="glyphicon glyphicon-user"></span>
+                </a></li>
+                <li><a class="navbar-link" href='/logout'>
+                    <span class="visible">Abmelden</span>
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="panel panel-default" id="main-content">
+        <div class="panel-head text-center">
+            <h1>Feedback</h1>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+                <div th:if="${#lists.isEmpty(feedbackList)}">
+                    <h2 class="text-center">
+                        <small>Kein Feedback vorhanden</small>
+                    </h2>
+                </div>
+                <div>
+                    <form class="navbar-link pull-right" method="post" th:if="${#bools.isTrue(isActive)}"
+                          th:action="@{'stop'}">
+                        <button type="submit" class="btn btn-default btn-danger">
+                            <span class="visible">Live-Feedback</span>
+                            <span class="glyphicon glyphicon-stop"></span>
+                        </button>
+                    </form>
+                    <form class="navbar-link pull-right" method="post" th:if="${#bools.isFalse(isActive)}"
+                          th:action="@{'start'}">
+                        <button type="submit" class="btn btn-default btn-success">
+                            <span class="visible">Live-Feedback</span>
+                            <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                    </form>
+                </div>
+                <div th:unless="${#lists.isEmpty(feedbackList)}">
+                    <p>Gesamt:
+                        <span style="color: #d90429" th:text="${feedbackList.size()}">Gesatmanzahl der Eintraege</span>
+                    </p>
+                </div>
+                <br>
+                <div class="list-group-item feedback" th:each="feedback : ${feedbackList}">
+                    <form th:action="@{'deleteFeedback/' + ${feedback.id}}" method="post">
+                        <div class="btn-group pull-right">
+                            <button type="submit" name="removeItem"
+                                    class="btn btn-danger glyphicon glyphicon-remove">
+                            </button>
+                        </div>
+                        <h4><strong th:text="${feedback.studentName}" class="inline-block">StudentName</strong>
+                            <small th:text="${#temporals.format(feedback.modified, 'dd-MM-yyyy HH:mm')}">dd-MM-yyyy
+                                HH:mm
+                            </small>
+                        </h4>
+                        <div class="feedback_body" th:text="${feedback.text}">Feedback Text</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+                integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+                crossorigin="anonymous"></script>
+    </div>
+</div>
+</body>
+</html>

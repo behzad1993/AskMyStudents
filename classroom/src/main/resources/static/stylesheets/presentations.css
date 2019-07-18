@@ -1,0 +1,202 @@
+#toolbar {
+  background: white; }
+  #toolbar .timer.time-running-out {
+    color: #d90429; }
+  #toolbar ul {
+    position: relative; }
+  #toolbar ul li {
+    font-size: 1.5em;
+    vertical-align: middle; }
+  #toolbar .label {
+    background-color: #d90429; }
+
+#presentation {
+  position: relative; }
+  #presentation .presentation_control .btn {
+    color: #2b2d42; }
+  #presentation .progress_presentation {
+    margin: 0;
+    position: relative; }
+    #presentation .progress_presentation .progress-bar-background {
+      position: absolute;
+      height: inherit;
+      background-color: #fff;
+      mix-blend-mode: exclusion; }
+    #presentation .progress_presentation .progress-bar {
+      position: relative;
+      background-color: #d90429;
+      mix-blend-mode: lighten; }
+    #presentation .progress_presentation .progress-bar-content {
+      position: absolute;
+      width: 100%;
+      mix-blend-mode: difference;
+      color: white; }
+  #presentation #activity ul {
+    padding: 0px; }
+
+#mood .sliders .small {
+  margin-top: -1.4em; }
+#mood .sliders .slider {
+  width: 100%;
+  opacity: 1;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d90429+0,009900+50,d90429+100 */
+  background: #8d99ae;
+  /* Old browsers */
+  background: -moz-linear-gradient(left, #d90429 0%, yellow, #007100 50%, yellow, #d90429 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #d90429 0%, yellow, #007100 50%, yellow, #d90429 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #d90429 0%, yellow, #007100 50%, yellow, #d90429 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d90429', endColorstr='#d90429',GradientType=1 );
+  /* IE6-9 */ }
+  #mood .sliders .slider .ui-slider-handle {
+    background: #fff; }
+
+#mood .mood {
+  padding: 2em 1em 1em;
+  text-align: center; }
+  #mood .mood > div {
+    margin: 0 3%;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle; }
+    #mood .mood > div p {
+      color: #000000;
+      font-size: 0.90em; }
+  #mood .mood .emoji {
+    text-align: center;
+    background-size: 100%;
+    width: 32px;
+    height: 32px; }
+    #mood .mood .emoji[data-num="0"] {
+      opacity: 0.2; }
+
+#students .btn-group {
+  margin: -6px -6px 0px; }
+
+#presentation-admin-view .spinner {
+  margin: 5em auto;
+  width: 70px;
+  text-align: center; }
+
+#presentation-waiting-view #presentation-pin-wrapper {
+  text-align: center; }
+  #presentation-waiting-view #presentation-pin-wrapper #presentation-pin {
+    display: inline-block;
+    border: 1px solid;
+    width: 66%;
+    text-align: center;
+    font-size: 200%; }
+#presentation-waiting-view .presentation-info .panel-body {
+  padding-top: 0px;
+  color: #d90429;
+  font-size: 3em;
+  text-align: center; }
+#presentation-waiting-view .presentation-info h1 {
+  color: black; }
+#presentation-waiting-view #student-list {
+  text-align: left;
+  padding: 7.5px; }
+  #presentation-waiting-view #student-list .student-nickname {
+    display: inline-block;
+    margin: 7.5px;
+    padding: 0.5em 1em;
+    font-size: 1.33em; }
+
+.presentation-view #question-detail {
+  text-align: justify;
+  font-size: 150%; }
+.presentation-view #summary-heading {
+  text-align: center;
+  font-size: 200%; }
+
+.presentation-actions {
+  position: fixed;
+  bottom: calc(40px + 1em);
+  right: 2em; }
+  .presentation-actions .btn {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 10px; }
+  .presentation-actions .presentation-timer {
+    position: fixed;
+    left: 0;
+    bottom: inherit;
+    width: 100%;
+    text-align: center; }
+    .presentation-actions .presentation-timer .timer-block {
+      font-size: 4em;
+      color: #000000; }
+    .presentation-actions .presentation-timer .timer.time-running-out {
+      color: #d90429; }
+
+#presentation-freetextpoll-view .freetextpoll-question,
+#presentation-freetextpoll-results-view .freetextpoll-question {
+  text-align: center;
+  font-size: 180%;
+  color: gray; }
+#presentation-freetextpoll-view .freetextpoll-response,
+#presentation-freetextpoll-results-view .freetextpoll-response {
+  margin-top: 0.5em;
+  padding: 0.5em; }
+
+#presentation-question-view #countdown-value {
+  display: none; }
+#presentation-question-view #question-answers {
+  text-align: center;
+  font-size: 1.5em; }
+  #presentation-question-view #question-answers .answer {
+    display: inline-flex;
+    justify-content: center;
+    width: 45%;
+    min-height: 4em;
+    text-align: center;
+    vertical-align: middle; }
+    #presentation-question-view #question-answers .answer:first-child, #presentation-question-view #question-answers .answer:nth-child(2) {
+      margin-bottom: 1em; }
+    #presentation-question-view #question-answers .answer:nth-child(2n) {
+      margin-left: 2%; }
+    #presentation-question-view #question-answers .answer:nth-child(2n+1) {
+      margin-right: 2%; }
+    #presentation-question-view #question-answers .answer .answer-text {
+      display: inline-flex;
+      padding: 0.5em;
+      align-self: center;
+      max-height: 100%;
+      overflow: hidden; }
+
+#presentation-question-results-view #question-answers-graph {
+  min-height: 20em;
+  height: 100%;
+  position: relative;
+  text-align: center; }
+  #presentation-question-results-view #question-answers-graph .answer-graph-item {
+    position: relative;
+    display: inline-block;
+    justify-content: center;
+    vertical-align: top;
+    min-height: 20em;
+    width: 20%; }
+    #presentation-question-results-view #question-answers-graph .answer-graph-item .answer-bar {
+      position: relative;
+      height: 20em; }
+      #presentation-question-results-view #question-answers-graph .answer-graph-item .answer-bar .answer-bar-number {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        color: white;
+        z-index: 1000;
+        font-size: 125%; }
+      #presentation-question-results-view #question-answers-graph .answer-graph-item .answer-bar .answer-bar-fill {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: #8D99AE; }
+    #presentation-question-results-view #question-answers-graph .answer-graph-item .answer-text {
+      font-size: 1.5em; }
+    #presentation-question-results-view #question-answers-graph .answer-graph-item.correct .answer-bar .answer-bar-fill {
+      background-color: #009900; }
+
+.presentation-date-buttons {
+  display: inline; }
+
+/*# sourceMappingURL=presentations.css.map */

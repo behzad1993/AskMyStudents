@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../static/stylesheets/application.css"
+          th:href="@{/stylesheets/application.css}" media="screen"/>
+</head>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<body>
+<nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/">
+                <div class="navbar-brand-name">
+                    <img th:src="@{/images/oak-logo-navbar.png}" width="13" height="20" alt="HotOak Logo">
+                    Classroom
+                </div>
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="navbar-link" href='/teacher/courses'>
+                    <span class="visible" th:text="${teacherName}">Teacher Name</span>
+                    <span class="glyphicon glyphicon-user"></span>
+                </a></li>
+                <li><a class="navbar-link" href='/logout'>
+                    <span class="visible">Abmelden</span>
+                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid" id="main-content">
+    <div id="presentation" class="refresh">
+        <div id='presentation-question-view' class="presentation-view">
+            <div class="panel panel-default">
+                <div class="panel-head text-center">
+                    <h2>
+                        <div id='question-text' th:text="${question.text}">Fragetext</div>
+                    </h2>
+                </div>
+            </div>
+            <div id='countdown-value' th:value="${question.timer}">Timer</div>
+            <div id='question-answers' th:each="answer : ${question.answers}">
+                <div class='answer panel panel-default'>
+                    <div class='answer-text' th:text="${answer.id}">Antwort</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="presentation-actions" th:with="timeLeft=0">
+            <form method="post" th:action="@{'next/' + ${question.orderIndex}}">
+                <div th:if="${timeLeft==0}">
+                    <div class="presentation-timer">
+                        <div class="timer-block">Zeit abgelaufen!</div>
+                    </div>
+                    <!--button to stop the timer-->
+                    <button class="btn btn-lg btn-default glyphicon glyphicon-chevron-right">
+
+                    </button>
+                </div>
+            </form>
+            <div th:unless="${timeLeft==0}">
+                <button type="submit" class="btn btn-lg btn-default glyphicon glyphicon-stop">
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
